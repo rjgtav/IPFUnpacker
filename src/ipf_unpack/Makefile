@@ -15,7 +15,7 @@ INCLUDES := -I. \
 			-I$(COMMON_DIR)
 
 # C compiler flag
-CFLAGS := -D_GNU_SOURCE -D__DBG_ACTIVATED__ -Wall $(INCLUDES) -c -Wno-strict-aliasing
+CFLAGS := -D_POSIX_C_SOURCE=199309L -D_GNU_SOURCE -D__DBG_ACTIVATED__ -Wall $(INCLUDES) -c -Wno-strict-aliasing
 
 # Linker library flags
 LIBDIRS  := -L$(API_DIR)/lib

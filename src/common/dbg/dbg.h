@@ -170,6 +170,7 @@ void dbgClose(void);
 #include <windows.h>
 LONG WINAPI crashHandler(EXCEPTION_POINTERS *ExceptionInfo);
 #else
+#include <signal.h>
 #include <ucontext.h>
 #include <execinfo.h>
 void printTrace(void);

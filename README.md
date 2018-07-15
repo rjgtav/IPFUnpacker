@@ -15,5 +15,3 @@ Make sure not encrypting twice the same IPF.
 Extract takes a decrypted IPF as argument and generates a list of files.
 By default, some extension files aren't decrypted entirely ; In that case, only the MD5 of the decrypted is generated.
 You can use the optional last arguments to notify which extensions you would like to decompress. (e.g : `ipf_decrypt.exe SumAni.ipf extract lua xml` will extract only lua and xml files inside SumAni.ipf)
-
-![HowTo](http://i.imgur.com/UJzXDZN.gif)
