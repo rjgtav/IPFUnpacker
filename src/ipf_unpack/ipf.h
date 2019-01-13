@@ -18,7 +18,7 @@
 #include <stdbool.h>
 
 // Callback type
-typedef bool (*IpfCallback) (uint8_t *ipf, size_t size, char *archive, char *filename, void *userdata);
+typedef bool (*IpfCallback) (uint8_t *ipf, size_t size, char *outputDirectory, char *archive, char *filename, void *userdata);
 
 // Prototypes
-bool ipf_read (uint8_t *ipf, size_t size, IpfCallback callback, void *userdata);
+bool ipf_read (uint8_t *ipf, size_t size, char *outputDirectory, IpfCallback callback, void *userdata);

@@ -37,7 +37,7 @@ typedef struct {
 } IpfInfo;
 #pragma pack (pop)
 
-bool ipf_read (uint8_t *ipf, size_t size, IpfCallback callback, void *userdata) 
+bool ipf_read (uint8_t *ipf, size_t size, char *outputDirectory, IpfCallback callback, void *userdata)
 {
     uint8_t *header = &ipf[size-24];
     bool status = false;
@@ -70,7 +70,7 @@ bool ipf_read (uint8_t *ipf, size_t size, IpfCallback callback, void *userdata)
         memset (filename, 0, sizeof(filename));
         strncpy (filename, filename_ptr, ipfInfo->filenameLength);
 
-        if (!(callback (data, dataSize, archive, filename, userdata))) {
+        if (!(callback (data, dataSize, outputDirectory, archive, filename, userdata))) {
             error ("callback failed for '%s:%s'", archive, filename);
         }
 

@@ -135,7 +135,7 @@ typedef struct {
     char **extensions;
     size_t extensionsCount;
 } IpfParams;
-static bool process_ipf (uint8_t *data, size_t dataSize, char *archive, char *filename, void *userdata)
+static bool process_ipf (uint8_t *data, size_t dataSize, char *outputDirectory, char *archive, char *filename, void *userdata)
 {
     int status = 0;
     IpfParams *params = (IpfParams *) userdata;
@@ -193,7 +193,7 @@ static bool process_ipf (uint8_t *data, size_t dataSize, char *archive, char *fi
 
             char targetPath[PATH_MAX] = {0};
             char targetFullName[PATH_MAX] = {0};
-            sprintf (targetPath, "./extract/%s/%s", archive, path);
+            sprintf (targetPath, "%s/extract/%s/%s", outputDirectory, archive, path);
             mkpath (targetPath);
             sprintf (targetFullName, "%s/%s", targetPath, name);
 
@@ -252,6 +252,7 @@ int main (int argc, char **argv)
     }
 
     // Initialize params
+    char *outputDirectory = dirname(strdup(argv[1]));
     IpfParams params = {0};
 
     if (strcmp (argv[2], "encrypt") == 0) {
@@ -266,7 +267,6 @@ int main (int argc, char **argv)
             error ("Cannot allocate zlib.");
             return 1;
         }
-        mkpath ("./extract");
     }
     else {
         error ("Unknown action '%s'", argv[2]);
@@ -292,7 +292,7 @@ int main (int argc, char **argv)
 
     // Parsing IPF
     info ("Parsing IPF '%s' (%s) ...", argv[1], argv[2]);
-    if (!(ipf_read (ipf, size, process_ipf, &params))) {
+    if (!(ipf_read (ipf, size, outputDirectory, process_ipf, &params))) {
         error ("Cannot read and ipf_decrypt the file '%s'", argv[1]);
         return 1;
     }
