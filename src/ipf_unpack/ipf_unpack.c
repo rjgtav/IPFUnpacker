@@ -25,7 +25,7 @@
 #define PATH_MAX 4096
 #endif
 
-char *default_decompressed_extensions[] = {"xml", "ies", "jpg", "png", "tga", "lua"};
+char *default_decompressed_extensions[] = {"3dworld", "3drender", "3dprop", "3deffect", "colmesh", "dds", "ies", "jpg", "lua", "pathengine", "png", "tga", "tok", "xac", "xml", "xsm"};
 
 
 void keys_generate (uint32_t *keys) 
@@ -137,6 +137,7 @@ typedef struct {
 } IpfParams;
 static bool process_ipf (uint8_t *data, size_t dataSize, char *outputDirectory, char *archive, char *filename, void *userdata)
 {
+    //info("process_ipf |\tfilename: %s", filename);
     int status = 0;
     IpfParams *params = (IpfParams *) userdata;
     PackAction action = params->action;

@@ -14,6 +14,12 @@
 #include "ies.h"
 #include "dbg/dbg.h"
 
+int IesColumn_compare (const void *_col1, const void *_col2) {
+    IesColumn *col1 = (IesColumn *) _col1;
+    IesColumn *col2 = (IesColumn *) _col2;
+    return col1->position - col2->position;
+}
+
 void ies_decrypt_string (char *string, size_t size)
 {
     for (size_t i = 0; i < size; i++) {
@@ -58,13 +64,8 @@ bool ies_read (uint8_t *ies, size_t size, IesCallback callback, void *userdata)
     }
 
     // Sort int/str columns
-    int sortColumns (const void *_col1, const void *_col2) {
-        IesColumn *col1 = (void *) _col1;
-        IesColumn *col2 = (void *) _col2;
-        return col1->position - col2->position;
-    }
-    qsort (intCols, header->intColsCount, sizeof(IesColumn), sortColumns);
-    qsort (strCols, header->strColsCount, sizeof(IesColumn), sortColumns);
+    qsort (intCols, header->intColsCount, sizeof(IesColumn), IesColumn_compare);
+    qsort (strCols, header->strColsCount, sizeof(IesColumn), IesColumn_compare);
 
     // Allocate IesTable
     size_t rowsCount = 0;
